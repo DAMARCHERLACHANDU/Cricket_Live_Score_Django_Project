@@ -1,0 +1,485 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      #moveToTop {
+        position: fixed;
+        bottom: 20px; /* Distance from bottom */
+        left: 50%; /* Center horizontally */
+        width: 150px;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+        color: #ffffff; /* White text color */
+        border: none;
+        padding: 8px 20px ; /* Adjust button size */
+        font-size: 14px; /* Smaller font size */
+        font-weight: bold; /* Bold text */
+        border-radius: 20px; /* Rounded edges */
+        cursor: pointer;
+        z-index: 9999; /* Stay on top of content */
+        display: none; /* Initially hidden */
+        transition: background-color 0.3s; /* Smooth hover effect */
+    }
+    
+    #moveToTop .arrow {
+        font-size: 16px; /* Arrow size slightly larger */
+        margin-left: 2px; /* Spacing between text and arrow */
+    }
+    
+    #moveToTop:hover {
+        background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+    }
+    
+    </style>
+    
+    
+
+  </head>
+<body>
+  
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="{% url 'homepage' %}">CRICKET🏏</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item ms-3">
+            <a class="nav-link active" href="{% url 'homepage' %}">HOME</a>
+            <!-- <a class="nav-link active" href="#pic">HOME</a> -->
+          </li>
+          <li class="nav-item ms-3">
+            <a class="nav-link active" href="{% url 'matches' %}">LIVE SCORE</a>
+          </li>
+          <div class="btn-group ms-3">
+            <a href="{% url 'seriesm' %}" class="btn btn-warning">SERIES</a>
+            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'matches' %}">India tour of Australia, 2024-25</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">India Women tour of Australia, 2024</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">England tour of New Zealand, 2024</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">Sri Lanka tour of South Africa, 2024</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">Pakistan tour of Zimbabwe, 2024</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">Big Bash League 2024-25</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">Syed Mushtaq Ali Trophy 2024</a></li>
+              <li><a class="dropdown-item" href="{% url 'matches' %}">Afghanistan tour of Zimbabwe, 2024-25</a></li>
+              <li><a class="dropdown-item" href="">Lanka T10 Super League, 2024</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'seriesm' %}">All Series >></a></li>
+            </ul>
+          </div>
+          <div class="btn-group ms-3">
+            <button type="button" class="btn btn-warning">TEAMS</button>
+            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'indiateam' %}">INDIA</a></li>
+              <li><a class="dropdown-item" href="{% url 'austeam' %}">AUSTRALIA</a></li>
+              <li><a class="dropdown-item" href="{% url 'engteam' %}">ENGLAND</a></li>
+              <li><a class="dropdown-item" href="{% url 'witeam' %}">WESTINDIES</a></li>
+              <li><a class="dropdown-item" href="{% url 'sriteam' %}">SRILANKA</a></li>
+              <li><a class="dropdown-item" href="#">PAKISTAN</a></li>
+              <li><a class="dropdown-item" href="#">NEWZEALAND</a></li>
+              <li><a class="dropdown-item" href="#">SOUTHAFRICA</a></li>
+              <li><a class="dropdown-item" href="#">AFGANISTAN</a></li>
+              <li><a class="dropdown-item" href="#">BANGLADESH</a></li>
+              <li><a class="dropdown-item" href="#">OTHERS</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">IPL</a></li>
+            </ul>
+          </div>
+          <li class="nav-item ms-3">
+            <a class="nav-link active" href="{% url 'about' %}">CONTACT US</a>
+          </li>
+        </ul>
+        
+        <!-- Login Button -->
+        <button class="btn btn-warning me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+
+        <!-- Search Form -->
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+<!-- Login Modal -->
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="loginModalLabel">LOGIN FORM</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm" onsubmit="return validateLoginForm()">
+          <div class="mb-3 fw-bold">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@gmail.com" required>
+            <div id="emailError" class="text-danger" style="display:none;">Please enter a valid email address.</div>
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required minlength="6">
+            <div id="passwordError" class="text-danger" style="display:none;">Password must be at least 6 characters long.</div>
+          </div>
+          <center><button type="submit" class="btn btn-primary">Login</button></center>
+          <div class="d-flex justify-content-between mt-3">
+            <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+            <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="forgotPasswordModalLabel">Forgot Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="forgotPasswordForm" onsubmit="return validateForgotPasswordForm()">
+          <div class="mb-3 fw-bold">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="New Password" required minlength="6">
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+            <div id="passwordMismatchError" class="text-danger" style="display:none;">Passwords do not match.</div>
+          </div>
+          <center><button type="submit" class="btn btn-primary">Reset Password</button></center>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="registerModalLabel">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registerForm" onsubmit="return validateRegisterForm()">
+          <div class="mb-3 fw-bold">
+            <label for="regUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" id="regUsername" placeholder="Enter your username" required>
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="regEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="regEmail" placeholder="name@gmail.com" required>
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="regPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="regPassword" placeholder="Password" required minlength="6">
+          </div>
+          <div class="mb-3 fw-bold">
+            <label for="confirmRegPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmRegPassword" placeholder="Confirm Password" required>
+            <div id="regPasswordMismatchError" class="text-danger" style="display:none;">Passwords do not match.</div>
+          </div>
+          <center><button type="submit" class="btn btn-primary">Register</button></center>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<center><h1 style="padding-top:53px;"></h1></center>
+
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="2000">
+      <img src="{% static 'images/h3.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block bg-light p-2">
+        <h5>TEAM INDIA</h5>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static 'images/h6.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block bg-light p-2">
+        <h5>TEAM ENGLAND</h5>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static 'images/h5.png' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block bg-light p-2">
+        <h5>TEAM AUSTRALIA</h5>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+                  <div class="container mt-4">
+                    <div class="row">
+                        <!-- Sidebar for Latest News -->
+                        <div class="col-md-3">
+                            <h5 class="border-bottom pb-2">Latest News</h5>
+                            <ul class="list-unstyled">
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Amidst Test recall speculation, Shami picked in Bengal's VHT squad</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Cricket's lesser spotted test comes to Bloemfontein</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">New Zealand pick uncapped Bella James for Australia ODIs</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">No DRS for South Africa, England women's Test</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Soumya Sarkar backs Bangladesh bowlers after tough ODI series</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">ICC announces new rules for T20 internationals</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">India announces squad for West Indies tour</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">England's new batting sensation stuns Australia</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Bangladesh aims to rebuild after tough losses</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">South Africa's spinner breaks records in ODI</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Pakistan schedules back-to-back home series</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">West Indies to host ICC World Cup Qualifiers</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Afghanistan achieves historic T20 victory</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Sri Lanka announces new coaching staff</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Australia plans extended training camps</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Amidst Test recall speculation, Shami picked in Bengal's VHT squad</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">Cricket's lesser spotted test comes to Bloemfontein</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">New Zealand pick uncapped Bella James for Australia ODIs</a></li>
+                              <li class="mb-2"><a href="#" class="text-decoration-none">No DRS for South Africa, England women's Test</a></li>
+                              
+                            </ul>
+                        </div>
+                        
+            
+                        <!-- Main content -->
+                        <div class="col-md-6">
+                            <h6 class="text-muted">DAY 2 - TEA</h6>
+                            <div class="mb-4">
+                                <img src="{% static 'images/s1.avif' %}" alt="News Image" class="img-fluid">
+                                <h3 class="mt-3">Head ton helps Australia hit back after early strikes</h3>
+                                <p>With his second consecutive ton in the series, Head put Australia in a position of command.</p>
+                                <a href="#" class="text-decoration-none">Crackkk - The sound of Kohli's resolve</a><br>
+                                <a href="#" class="text-decoration-none">'We will treat it as a three-match series'</a>
+                            </div>
+            
+                            <div class="mt-4">
+                                <h5>Made in a Lab?</h5>
+                                <img src="{% static 'images/s2.jpg' %}" alt="Made in a Lab" class="img-fluid">
+                            </div>
+                        </div>
+                        <!-- Featured Videos -->
+            <div class="col-md-3">
+              <h5 class="border-bottom pb-2">Featured Videos</h5>
+              <div class="mb-3">
+                  <img src="{% static 'images/s3.webp' %}" alt="Video 1" class="img-fluid">
+                  <p class="mt-2">Head profited from India's unclear game plan: Parthiv Patel</p>
+              </div>
+              <div class="mb-3">
+                  <img src="{% static 'images/s5.webp' %}" alt="Video 2" class="img-fluid">
+                  <p class="mt-2">Not yet at his best, but Smith's grit brought him runs: Parthiv Patel</p>
+              </div>
+              <div class="mb-3">
+                  <img src="{% static 'images/s4.webp' %}" alt="Video 3" class="img-fluid">
+                  <p class="mt-2">Cricbuzz Chatter: Australia v India, 3rd Test, Day 2, Tea</p>
+              </div>
+              <div class="mb-3">
+                <img src="{% static 'images/s7.webp' %}" class="img-fluid" alt="Match 2">
+                <p class="mb-0">Australia vs India, 3rd Test, Day 1</p>
+                <small class="text-muted">Sat, Dec 14 2024</small>
+            </div>
+              <a href="#" class="btn btn-primary btn-sm">More Videos</a>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="container mt-4">
+    <div class="row">
+
+        <!-- Left Sidebar (Latest Photos) -->
+        <div class="col-md-3">
+            <h5 class="text-success fw-bold">LATEST PHOTOS</h5>
+            <div class="mb-3">
+                <img src="{% static 'images/s6.webp' %}" class="img-fluid" alt="Match 1">
+                <p class="mb-0">Australia vs India, 3rd Test, Day 2</p>
+                <small class="text-muted">Sun, Dec 15 2024</small>
+            </div>
+            <div class="mb-3">
+                <img src="{% static 'images/s7.webp' %}" class="img-fluid" alt="Match 2">
+                <p class="mb-0">Australia vs India, 3rd Test, Day 1</p>
+                <small class="text-muted">Sat, Dec 14 2024</small>
+            </div>
+            <div class="mb-3">
+                <img src="{% static 'images/s8.webp' %}" class="img-fluid" alt="Match 3">
+                <p class="mb-0">Australia vs India, 2nd Test, Day 3</p>
+                <small class="text-muted">Sun, Dec 08 2024</small>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-6">
+            <!-- Feature Article -->
+            <div class="mb-4">
+                <img src="{% static 'images/s10.jpg' %}" class="img-fluid mb-2" alt="Jasprit Bumrah">
+                <h4 class="fw-bold">The mastery of length ft. Jasprit Bumrah</h4>
+                <p>How and why the Indian fast bowling superstar is a cut above his peers in the game today</p>
+                <a href="#" class="text-primary fw-bold">Marsh backs Smith to be among the runs again</a><br>
+                <a href="#" class="text-primary fw-bold">Hazlewood back in place of Boland for Brisbane</a>
+            </div>
+
+            <!-- Sub Article -->
+            <div>
+                <h6 class="text-muted fw-bold">SYED MUSHTAQ ALI TROPHY, 2024</h6>
+                <img src="{% static 'images/s9.avif' %}" class="img-fluid mb-2" alt="Player Photo">
+                <h5 class="fw-bold">Resilience of Madhya Pradesh takes them through</h5>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (Articles) -->
+        <div class="col-md-3">
+            <div class="mb-4">
+                <img src="{% static 'images/s3.webp' %}" class="img-fluid mb-2" alt="Ben Stokes">
+                <h6 class="fw-bold">Ben Stokes sees the finishing line</h6>
+                <p class="small text-muted">
+                    Ben Stokes' place in a lineage of romanticised English talismans is secure...
+                </p>
+            </div>
+            <div class="mb-4" id="pic">
+                <img src="{% static 'images/s5.webp' %}" class="img-fluid mb-2" alt="New Zealand">
+                <h6 class="fw-bold">Breaching Bastions: Young and the extraordinary</h6>
+                <p class="small text-muted">
+                    The Player of the Series reflects on the triumph that got him here.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+              
+                  <footer class="bg-dark text-white pt-4">
+                    <div class="container">
+                      <div class="row">
+                        <!-- About Section -->
+                        <div class="col-md">
+                         <center> <h5> © 2024 Cricket All rights reserved</h5></center>
+                        </div>
+
+
+                        <button id="moveToTop">
+                          Move to top <span class="arrow">↑</span>
+                        </button>
+                        
+
+
+    <!--  
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js.map' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.esm.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.esm.js.map' %}"></script>
+    -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+   // Validate Login Form
+   function validateLoginForm() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    let isValid = true;
+
+    // Email validation
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email)) {
+      emailError.style.display = 'block';
+      isValid = false;
+    } else {
+      emailError.style.display = 'none';
+    }
+
+    // Password validation
+    if (password.length < 6) {
+      passwordError.style.display = 'block';
+      isValid = false;
+    } else {
+      passwordError.style.display = 'none';
+    }
+
+    return isValid;
+  }
+
+  // Validate Forgot Password Form
+  function validateForgotPasswordForm() {
+    const newPassword = document.getElementById('newPassword').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+    const passwordMismatchError = document.getElementById('passwordMismatchError');
+
+    if (newPassword !== confirmPassword) {
+      passwordMismatchError.style.display = 'block';
+      return false;
+    } else {
+      passwordMismatchError.style.display = 'none';
+      return true;
+    }
+  }
+
+  // Validate Register Form
+  function validateRegisterForm() {
+    const regPassword = document.getElementById('regPassword').value.trim();
+    const confirmRegPassword = document.getElementById('confirmRegPassword').value.trim();
+    const regPasswordMismatchError = document.getElementById('regPasswordMismatchError');
+
+    if (regPassword !== confirmRegPassword) {
+      regPasswordMismatchError.style.display = 'block';
+      return false;
+    } else {
+      regPasswordMismatchError.style.display = 'none';
+      return true;
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+  

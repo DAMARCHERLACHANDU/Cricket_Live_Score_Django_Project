@@ -1,0 +1,33 @@
+<button id="moveToTop">
+    Move to top <span class="arrow">↑</span>
+  </button>
+
+
+
+  #moveToTop {
+    position: fixed;
+    bottom: 20px; /* Distance from bottom */
+    left: 50%; /* Center horizontally */
+    width: 150px;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+    color: #ffffff; /* White text color */
+    border: none;
+    padding: 8px 20px ; /* Adjust button size */
+    font-size: 14px; /* Smaller font size */
+    font-weight: bold; /* Bold text */
+    border-radius: 20px; /* Rounded edges */
+    cursor: pointer;
+    z-index: 9999; /* Stay on top of content */
+    display: none; /* Initially hidden */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+#moveToTop .arrow {
+    font-size: 16px; /* Arrow size slightly larger */
+    margin-left: 2px; /* Spacing between text and arrow */
+}
+
+#moveToTop:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+}
